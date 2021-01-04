@@ -29,7 +29,7 @@ CORS(app)
 '''
 
 
-@app.route('/drinks', method=['GET'])
+@app.route('/drinks', methods=['GET'])
 def get_drinks():
     try:
         drinks = Drink.query.order_by(Drink.id).all()
