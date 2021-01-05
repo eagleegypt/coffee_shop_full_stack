@@ -32,6 +32,8 @@ class AuthError(Exception):
         it should raise an AuthError if the header is malformed
     return the token part of the header
 '''
+
+
 def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
     if not auth:
@@ -89,17 +91,19 @@ def check_permissions(permission, payload):
 
     !!NOTE urlopen has a common certificate error described here: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 '''
+
+
 def verify_decode_jwt(token):
-    # raise Exception('Not Implemented')
-    jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jks/.json')
+    jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
-
     unverified_header = jwt.get_unverified_header(token)
-
     rsa_key = {}
     if 'kid' not in unverified_header:
-        raise AuthError({'code': 'Invalid Header',
-                         'descriptions': 'Authorization malformed'}, 401)
+        raise AuthError({
+            'code': 'invalid_header',
+            'description': 'Authorization malformed.'
+        }, 401)
+
     for key in jwks['keys']:
         if key['kid'] == unverified_header['kid']:
             rsa_key = {
@@ -111,26 +115,37 @@ def verify_decode_jwt(token):
             }
     if rsa_key:
         try:
-            payload = jwt.decode(token,
-                                 rsa_key,
-                                 algorithm=ALGORITHMS,
-                                 audience=API_AUDIENCE,
-                                 issuer='https://'+AUTH0_DOMAIN + '/')
+            payload = jwt.decode(
+                token,
+                rsa_key,
+                algorithms=ALGORITHMS,
+                audience=API_AUDIENCE,
+                issuer='https://' + AUTH0_DOMAIN + '/'
+            )
+
+            return payload
 
         except jwt.ExpiredSignatureError:
-            raise AuthError(
-                {'code': 'Token Expired', 'descriptions': 'Token Expired Please Try Login Again'}, 401)
-        except jwt.JWTClaimsError:
-            raise AuthError(
-                {'code': 'Invalid Claims', 'descriptions': 'Incorrect Claims , Please Check The Audience And Issuer'}, 401)
-        except Exception:
-            raise AuthError(
-                {'code': 'Invalid Header', 'descriptions': 'Unable To Parse Authentication Token'}, 400)
+            raise AuthError({
+                'code': 'token_expired',
+                'description': 'Token expired.'
+            }, 401)
 
+        except jwt.JWTClaimsError:
+            raise AuthError({
+                'code': 'invalid_claims',
+                'description': 'Incorrect claims. Please, check the audience and issuer.'
+            }, 401)
+        except Exception:
+            raise AuthError({
+                'code': 'invalid_header',
+                'description': 'Unable to parse authentication token.'
+            }, 400)
     raise AuthError({
-        'code': 'Invalid Header',
-        'descriptions': 'Unable To Find Appropriate Key'
-    }, 400)
+        'code': 'invalid_header',
+                'description': 'Unable to find the appropriate key.'
+    }, 401)
+    return unverified_header
 
 
 '''
@@ -143,19 +158,21 @@ def verify_decode_jwt(token):
     it should use the check_permissions method validate claims and check the requested permission
     return the decorator which passes the decoded payload to the decorated method
 '''
+
+
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
-            try:
-                payload = verify_decode_jwt(token)
+            payload = verify_decode_jwt(token)
 
-            except:
-                raise AuthError(
-                    {'code': 'Invalid Token', 'descriptions': 'Token Could Not Be Verified'}, 401)
+            if not check_permissions(permission, payload):
+                raise AuthError({
+                    'code': 'invalid_header',
+                    'description': 'The user doesnt have permissions to perform this step'
+                }, 401)
 
-            check_permissions(permission, payload)
             return f(payload, *args, **kwargs)
 
         return wrapper

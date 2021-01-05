@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, abort
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
-
+import sys
 from .database.models import db_drop_and_create_all, setup_db, Drink
 from .auth.auth import AuthError, requires_auth
 
@@ -78,25 +78,23 @@ def get_drinks_detail(jwt):
 
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
-def post_new_drinks(jwt):
-    body = request.get_json()
-    if not ('title' in body and 'recipe' in body):
-        abort(422)
-    title = body.get('title')
-    recipe = body.get('recipe')
-
+def post_drinks(jwt):
     try:
-        drink = Drink(title=title, recipe=json.dumps(recipe))
-
+        data = request.get_json()
+        print("\n\nPOST drinks hit:", data, '\n\n')
+        req_recipe = data['recipe']
+        if isinstance(req_recipe, dict):
+            req_recipe = [req_recipe]
+        drink = Drink(title=data['title'], recipe=json.dumps(req_recipe))
+        print(drink)
         drink.insert()
-
         return jsonify({
             'success': True,
-            'drinks': [drink.long()]
+            'drinks': drink.long()
         })
-
     except:
-        abort(422)
+        print(sys.exc_info())
+        abort(400)
 
 
 '''

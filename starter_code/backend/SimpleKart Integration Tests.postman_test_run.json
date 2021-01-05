@@ -1,0 +1,240 @@
+{
+	"id": "862a69ad-e1e4-4b37-84af-7a2e296da291",
+	"name": "SimpleKart Integration Tests",
+	"timestamp": "2021-01-05T00:16:17.673Z",
+	"collection_id": "e847571b-8891-4823-adcb-1cc00bfc13ab",
+	"folder_id": 0,
+	"environment_id": "52ad220c-acb1-498a-a137-366e87be23f3",
+	"totalPass": 12,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "9268692b-ae2f-4530-b3e7-f4f57708e809",
+			"name": "Create an order",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/orders",
+			"time": 825,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Order should have the correct item": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Order should have the correct item": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				825
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Order should have the correct item": true
+				}
+			]
+		},
+		{
+			"id": "a5fc2821-24d7-46a2-841c-d4acbcb147fe",
+			"name": "Fetch order details",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/orders/656",
+			"time": 282,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Order should have the correct item": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Order should have the correct item": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				282
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Order should have the correct item": true
+				}
+			]
+		},
+		{
+			"id": "03c50198-c311-4487-a3ca-17b67f8f54c5",
+			"name": "Get all orders",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/orders?list=10",
+			"time": 282,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Orders should have the new order": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Orders should have the new order": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				282
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Orders should have the new order": true
+				}
+			]
+		},
+		{
+			"id": "e3bcf65c-01e5-49a6-ac8b-f5b72d0a31df",
+			"name": "Fetch order details",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/orders/656",
+			"time": 288,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Order should have the correct item": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Order should have the correct item": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				288
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Order should have the correct item": true
+				}
+			]
+		},
+		{
+			"id": "f369cfbf-9a63-45e0-813a-6c0c6a9e67d7",
+			"name": "Fetch all items",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/items?list=10",
+			"time": 310,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Order should have the correct item": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Order should have the correct item": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				310
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Order should have the correct item": true
+				}
+			]
+		},
+		{
+			"id": "a38ed4c4-a01c-44fa-8240-9a413431a48d",
+			"name": "Fetch postman merch",
+			"url": "https://fffc2eb4-dbcf-4c6d-bc30-c3cb2e7ecfa6.mock.pstmn.io/items/16247",
+			"time": 286,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Should have 200 OK status code": true,
+				"Order should have the correct item": true
+			},
+			"testPassFailCounts": {
+				"Should have 200 OK status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Order should have the correct item": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				286
+			],
+			"allTests": [
+				{
+					"Should have 200 OK status code": true,
+					"Order should have the correct item": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2273,
+	"collection": {
+		"requests": [
+			{
+				"id": "9268692b-ae2f-4530-b3e7-f4f57708e809",
+				"method": "POST"
+			},
+			{
+				"id": "a5fc2821-24d7-46a2-841c-d4acbcb147fe",
+				"method": "GET"
+			},
+			{
+				"id": "03c50198-c311-4487-a3ca-17b67f8f54c5",
+				"method": "GET"
+			},
+			{
+				"id": "e3bcf65c-01e5-49a6-ac8b-f5b72d0a31df",
+				"method": "GET"
+			},
+			{
+				"id": "f369cfbf-9a63-45e0-813a-6c0c6a9e67d7",
+				"method": "GET"
+			},
+			{
+				"id": "a38ed4c4-a01c-44fa-8240-9a413431a48d",
+				"method": "GET"
+			}
+		]
+	}
+}
